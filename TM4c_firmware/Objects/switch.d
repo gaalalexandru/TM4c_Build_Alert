@@ -1,0 +1,14 @@
+.\objects\switch.o: switch.c
+.\objects\switch.o: switch.h
+.\objects\switch.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\switch.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\switch.o: led.h
+.\objects\switch.o: timer.h
+.\objects\switch.o: display.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/sysctl.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/gpio.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/interrupt.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/pin_map.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/timer.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\inc/hw_memmap.h
+.\objects\switch.o: ..\..\TivaWare_C_Series-2.1.1.71\inc/hw_ints.h
