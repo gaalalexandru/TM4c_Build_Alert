@@ -20,12 +20,13 @@
 /*-----------External function definisions-----------*/
 /*Step2 - Init UART and write functions to display character, strings, decimal and hex numbers*/
 
-void Display_Init(void);
-void Display_Char(unsigned char data);
-void Display_String(char *pt);
-void Display_Decimal(unsigned long n);
-void Display_Hex(unsigned long number);
-void Display_NewLine(void);
+void UART0_Init(void);
+void UART0_Out_Char(unsigned char data);
+uint8_t UART0_In_Char(void);
+void UART0_Out_String(char *pt);
+void UART0_Out_Decimal(unsigned long n);
+void UART0_Out_Hex(unsigned long number);
+void UART0_Out_NewLine(void);
 
 #endif
 //EOF

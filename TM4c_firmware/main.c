@@ -7,65 +7,80 @@
 #include "driverlib/interrupt.h"
 
 /*------------------Project Includes-----------------*/
-#include "timer.h"
-#include "led.h"
-#include "display.h"
-#include "sensor.h"
-#include "switch.h"
-extern uint32_t Baud_Rate_Read;
+#include "gpio_handler.h"
+#include "uart_handler.h"
+
+/*-------------------Macro Definitions----------------*/
+
+// Color    LED(s) PortF
+// DARK     ---    0
+// RED      R--    0x02 - 1
+// BLUE     --B    0x04 - 2
+// GREEN    -G-    0x08 
+// YELLOW   RG-    0x0A
+// SKY_BLUE -GB    0x0C
+// WHITE    RGB    0x0E
+// PINK     R-B    0x06
+
+extern uint8_t Baud_Rate_Read;
+
+#define UART_DEBUG
 
 int main(void)
 {
-	/* Step1 - Initialize clock and a timer to toggle LED, Init GPIO for RED LED*/
-	unsigned long delay = 600000;
+	uint8_t command = 0;
+	uint8_t old_command = 0;
 	unsigned long ui32SysClock;
-	IntMasterDisable();	//Global interrupt disable
+	
+	/* Step1 - Initialize clock and a timer to toggle LED, Init GPIO for RED LED*/
 	SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN); //80 Mhz
 	ui32SysClock = SysCtlClockGet();
-	//RGB_Led_Init();
-	TIMER_Wide_0_Init();
-
 	
-	/* Step2 - Initialize ADC and UART for sensor and display*/
+	/* Step2 - Initialize UART for receiving commands and display debug info*/
+	UART0_Init();
+#ifdef UART_DEBUG
+	UART0_Out_NewLine();  
+	UART0_Out_String("Clock: ");
+	UART0_Out_Decimal(ui32SysClock/1000000);
+	UART0_Out_String(" MHz");
+	UART0_Out_NewLine();
+	UART0_Out_String("Baud Rate: ");
+	UART0_Out_Decimal(Baud_Rate_Read);
+	UART0_Out_String(" bit/sec");
+	UART0_Out_NewLine();
+#endif
 	
-	Display_Init();
-	Sensor_Init();
-	Display_NewLine();  
-	Display_NewLine();
-	Display_String("Clock: ");
-	Display_Decimal(ui32SysClock/1000000);
-	Display_String(" MHz");
-	Display_NewLine();
-	Display_String("Baud Rate: ");
-	Display_Decimal(Baud_Rate_Read);
-	Display_String(" bit/sec");
-	Display_NewLine();
-	Display_NewLine();
-	
-	
-	/* Step3 - Initialize PWM and GPIO switches to change RGB LED color*/
-	/* Step3 - delete RGB_Led_Init() function call from above*/
-	
-	RGB_PWM_Init(1000);
-	TIMER_1_Init();
-	TIMER_2_Init();
-	Switch_Init();
-
-	IntMasterEnable();	//Global interrupt enable
+	/* Step3 - Initialize GPIO output for PF1,2,3 */
+	GPIO_PortF_Init();
 
 	/*Step1 - Enter while loop only if clock initialized correctly*/
 	while(ui32SysClock)  //Clock working :)
-	//while(1)
 	{
 		//run forever
-		/*
-		RGB_Led_toggle(BLUE);
-		
-		while (delay) {
-			delay--;
+		command = UART0_In_Char();
+#ifdef UART_DEBUG
+	UART0_Out_NewLine();  
+	UART0_Out_String("Received command: ");
+	UART0_Out_Char(command);
+#endif
+		if(old_command != command){
+			switch (command){
+				case 0:
+					GPIO_PortF_Toggle(DARK);
+					break;
+				case 1:
+					GPIO_PortF_Toggle(RED);
+					break;
+				case 2:
+					GPIO_PortF_Toggle(BLUE);
+					break;
+				case 3:
+					GPIO_PortF_Toggle(GREEN);
+				default:
+					break;
+			}
+			old_command  = command;
 		}
-		delay = 600000;
-		*/
 	}
 	return 0;
 }

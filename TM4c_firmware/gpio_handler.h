@@ -6,20 +6,21 @@
 #include "stdint.h"
 
 /*-------------------Macro Definitions----------------*/
+#define DARK (0x00)
 #define RED (0x02)	//PF1
 #define BLUE (0x04)	//PF2
 #define GREEN (0x08)  //PF3
+#define YELLOW (0x0A)
+#define SKY_BLUE (0x0C)
+#define WHITE (0x0E)
+#define PINK (0x06)
+
+#define GPIO_PORTF_LOCK_R       (*((volatile unsigned long *)0x40025520))
+#define GPIO_PORTF_CR_R         (*((volatile unsigned long *)0x40025524))
 
 /*-----------External function definisions-----------*/
 /*Step1 Init GPIO for RED LED and write toggle function*/
-void RGB_Led_Init(void);
-void RGB_Led_toggle(unsigned char color);
-
-/*Step3 init PWM for RGB LED and Duty Cycle changing function*/
-void RGB_PWM_Init(unsigned long PWM_Period);
-void RED_PWM_DutyCycle(unsigned long duty_cycle);
-void GREEN_PWM_DutyCycle(unsigned long duty_cycle);
-void BLUE_PWM_DutyCycle(unsigned long duty_cycle);
-
+void GPIO_PortF_Init(void);
+void GPIO_PortF_Toggle(unsigned char output);
 #endif
 //EOF

@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>rvmdk PART_TM4C123GH6PM TARGET_IS_TM4C123_RA1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk;..\..\TivaWare_C_Series-2.1.1.71\;..\TivaWare_C_Series-2.1.1.71</IncludePath>
+              <IncludePath>..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk;..\..\TivaWare_C_Series-2.1.1.71\</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -385,29 +385,14 @@
               <FilePath>.\main.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>uart_handler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\led.c</FilePath>
+              <FilePath>.\uart_handler.c</FilePath>
             </File>
             <File>
-              <FileName>switch.c</FileName>
+              <FileName>gpio_handler.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\switch.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\display.c</FilePath>
-            </File>
-            <File>
-              <FileName>sensor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\sensor.c</FilePath>
+              <FilePath>.\gpio_handler.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -417,7 +402,7 @@
             <File>
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk\driverlib.lib</FilePath>
+              <FilePath>..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk\driverlib.lib</FilePath>
             </File>
           </Files>
         </Group>

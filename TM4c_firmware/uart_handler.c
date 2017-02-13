@@ -1,5 +1,5 @@
 /*------------------Project Includes-----------------*/
-#include "display.h"
+#include "uart_handler.h"
 
 /*-------------------Driver Includes-----------------*/
 #include "driverlib/sysctl.h"
@@ -13,7 +13,7 @@
 uint32_t Baud_Rate_Read = 0;
 /*Step2 - Init UART and write functions to display character, strings, decimal and hex numbers*/
 
-void Display_Init(void){
+void UART0_Init(void){
 	uint32_t uart_config_read = 0;
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);  //Enable clock on UART0
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);  //Enable clock on port A  //PA0 and PA1 is hard wired to debugger and USB
@@ -31,48 +31,52 @@ void Display_Init(void){
 	UARTConfigGetExpClk(UART0_BASE, SysCtlClockGet(), &Baud_Rate_Read, &uart_config_read);  //Get the Baud Rate
 }
 
-void Display_Char(unsigned char data){
+void UART0_Out_Char(unsigned char data){
 	UARTCharPut(UART0_BASE, data);
 }
 
-void Display_String(char *pt){
+void UART0_Out_String(char *pt){
 	while(*pt) { //While not the end of the string
-		Display_Char(*pt);  //display current character
+		UART0_Out_Char(*pt);  //display current character
 		pt++;  //move to next character
 	}
 }
 
-void Display_Decimal(unsigned long n){
+void UART0_Out_Decimal(unsigned long n){
 // This function uses recursion to convert decimal number
 //   of unspecified length as an ASCII string
 	if(n >= 10){
-		Display_Decimal(n/10);
+		UART0_Out_Decimal(n/10);
 		n = n%10;
   }
-  Display_Char(n+'0'); 
+  UART0_Out_Char(n+'0'); 
 	// n is between 0 and 9
 }
 
-void Display_Hex(unsigned long number){
+void UART0_Out_Hex(unsigned long number){
 // This function uses recursion to convert the number of
 //   unspecified length as an ASCII string
   if(number >= 0x10){
-    Display_Hex(number/0x10);
-    Display_Hex(number%0x10);
+    UART0_Out_Hex(number/0x10);
+    UART0_Out_Hex(number%0x10);
   }
   else{
     if(number < 0xA){
-      Display_Char(number+'0');
+      UART0_Out_Char(number+'0');
      }
     else{
-      Display_Char((number-0x0A)+'A');
+      UART0_Out_Char((number-0x0A)+'A');
     }
   }
 }
 
-void Display_NewLine(void){
-  Display_Char(CR);
-  Display_Char(LF);
+void UART0_Out_NewLine(void){
+  UART0_Out_Char(CR);
+  UART0_Out_Char(LF);
+}
+
+uint8_t UART0_In_Char(void){
+	return ((uint8_t)UARTCharGetNonBlocking(UART0_BASE));
 }
 
 //EOF
