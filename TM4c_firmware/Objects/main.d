@@ -5,3 +5,4 @@
 .\objects\main.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/interrupt.h
 .\objects\main.o: gpio_handler.h
 .\objects\main.o: uart_handler.h
+.\objects\main.o: timer_handler.h

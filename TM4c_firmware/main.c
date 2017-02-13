@@ -9,7 +9,7 @@
 /*------------------Project Includes-----------------*/
 #include "gpio_handler.h"
 #include "uart_handler.h"
-
+#include "timer_handler.h"
 /*-------------------Macro Definitions----------------*/
 
 // Color    LED(s) PortF
@@ -22,6 +22,7 @@
 // WHITE    RGB    0x0E
 // PINK     R-B    0x06
 
+uint8_t timer_flag = 0;
 extern uint8_t Baud_Rate_Read;
 
 #define UART_DEBUG
@@ -38,6 +39,7 @@ int main(void)
 	
 	/* Step2 - Initialize UART for receiving commands and display debug info*/
 	UART0_Init();
+	
 #ifdef UART_DEBUG
 	UART0_Out_NewLine();  
 	UART0_Out_String("Clock: ");
@@ -52,34 +54,38 @@ int main(void)
 	
 	/* Step3 - Initialize GPIO output for PF1,2,3 */
 	GPIO_PortF_Init();
+	TIMER_Wide_0_Init();
 
 	/*Step1 - Enter while loop only if clock initialized correctly*/
 	while(ui32SysClock)  //Clock working :)
 	{
 		//run forever
-		command = UART0_In_Char();
-#ifdef UART_DEBUG
-	UART0_Out_NewLine();  
-	UART0_Out_String("Received command: ");
-	UART0_Out_Char(command);
-#endif
-		if(old_command != command){
-			switch (command){
-				case 0:
-					GPIO_PortF_Toggle(DARK);
-					break;
-				case 1:
-					GPIO_PortF_Toggle(RED);
-					break;
-				case 2:
-					GPIO_PortF_Toggle(BLUE);
-					break;
-				case 3:
-					GPIO_PortF_Toggle(GREEN);
-				default:
-					break;
+		if(timer_flag ==1){
+			command = UART0_In_Char();
+	#ifdef UART_DEBUG
+		UART0_Out_NewLine();  
+		UART0_Out_String("Received command: ");
+		UART0_Out_Char(command);
+	#endif
+			if(old_command != command){
+				switch (command){
+					case 0:
+						GPIO_PortF_Toggle(WHITE);
+						break;
+					case 1:
+						GPIO_PortF_Toggle(RED);
+						break;
+					case 2:
+						GPIO_PortF_Toggle(BLUE);
+						break;
+					case 3:
+						GPIO_PortF_Toggle(GREEN);
+					default:
+						break;
+				}
+				old_command  = command;
 			}
-			old_command  = command;
+			timer_flag = 0; //reset flag
 		}
 	}
 	return 0;

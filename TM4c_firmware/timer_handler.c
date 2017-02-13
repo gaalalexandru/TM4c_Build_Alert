@@ -1,7 +1,7 @@
 /*------------------Project Includes-----------------*/
-#include "timer.h"
-#include "led.h"
-#include "display.h"
+#include "timer_handler.h"
+//#include "led.h"
+//#include "display.h"
 
 /*-------------------Driver Includes-----------------*/
 #include "driverlib/sysctl.h"
@@ -20,9 +20,8 @@
 #define TIMER1_PRIO (0x00)
 #define TIMER2_PRIO (0x00)
 
-extern unsigned long Sensor_Temperature;
-extern unsigned long Sensor_AnalogVoltage;
-signed char PWM_DutyCycle = 50;
+extern uint8_t timer_flag;
+
 
 /*Step1 - Init Wide Timer0 and write Wide Timer0 ISR*/
 
@@ -57,37 +56,16 @@ void TIMER_Wide_0_Init(void)	//cyclic wide timer configuration
 
 void WTIMER0A_Handler(void)		//Wide Timer 0 A ISR
 {
-	unsigned long timer_value=0;
+	//unsigned long timer_value=0;
 	if(TimerIntStatus(WTIMER0_BASE,false))
 	{
 		TimerIntClear(WTIMER0_BASE, TIMER_A);
-		timer_value = TimerValueGet(WTIMER0_BASE, TIMER_A);
-		//RGB_Led_toggle(RED);
-
-// Step2 - Trigger ADC by timer and print temperature value
-
-		ADCProcessorTrigger(ADC0_BASE, 3);  //Trigger Temperature sensor ADC
-		
-		Display_NewLine();
-		Display_String("Internal temperature: ");
+		//timer_value = TimerValueGet(WTIMER0_BASE, TIMER_A);
 		IntMasterDisable();	//Global interrupt disable
-		Display_Decimal(Sensor_Temperature);
+		timer_flag = 1;
  	  IntMasterEnable();	//Global interrupt enable
-		Display_String(" degC");	
-		Display_NewLine();
-		Display_String("Analog voltage: ");
-		IntMasterDisable();	//Global interrupt disable
-		Display_Decimal(Sensor_AnalogVoltage);
-		IntMasterEnable();	//Global interrupt enable
-		Display_String(" mV");
-		Display_NewLine();
-		Display_NewLine();
 	}
 }
-
-
-/*Step3 - Init Timer 1 and 2 to GPIO switch debouncing, write Timer 1 and 2 ISR*/
-/*Step3 - Delete RGB led toggle from Wide Timer0 ISR*/
 
 void TIMER_1_Init(void)	//cyclic timer configuration for PF0 / SW2 debounce
 {
@@ -127,68 +105,21 @@ void TIMER_2_Init(void)	//cyclic timer configuration for PF4 / SW1 debounce
 
 void TIMER1A_Handler(void)  //Timer 1 A ISR used to debounce SW2
 {
-	unsigned long switch_value = 0;
-	//Display_String("Timer 1 ISR launched -> ");
 	if(TimerIntStatus(TIMER1_BASE,false))
 	{
 		TimerDisable(TIMER1_BASE, TIMER_A);
 		TimerIntClear(TIMER1_BASE, TIMER_A);
-		switch_value = GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_0);
-		if(!(switch_value & GPIO_PIN_0)) {
-			if (PWM_DutyCycle >= 99)
-			{
-				Display_String("HOT enough!");
-				Display_NewLine();
-			}
-			else
-			{
-				Display_String("Getting hotter...");	
-				Display_String(" Simulated temperature: ");
-				Display_Decimal(PWM_DutyCycle);
-				Display_String(" % of 100%");
-				Display_NewLine();
-			}
-			PWM_DutyCycle += 2;
-			if (PWM_DutyCycle > 100) {
-				PWM_DutyCycle = 100;
-			}
-			RED_PWM_DutyCycle(PWM_DutyCycle);
-			BLUE_PWM_DutyCycle(100-PWM_DutyCycle);			
-		}
-	GPIOIntEnable(GPIO_PORTF_BASE, GPIO_INT_PIN_0);  //Enable GPIO pin interrupt		
+		//..	
 	}
 }
 
 void TIMER2A_Handler(void)  //Timer 2 A ISR used to debounce SW1
 {
-	unsigned long switch_value = 0;
 	if(TimerIntStatus(TIMER2_BASE,false))
 	{
 		TimerDisable(TIMER2_BASE, TIMER_A);
 		TimerIntClear(TIMER2_BASE, TIMER_A);
-		switch_value = GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_4);
-		if(!(switch_value & GPIO_PIN_4)) {
-			if (PWM_DutyCycle == 0)
-			{
-				Display_String("COLD enough!");
-				Display_NewLine();
-			}
-			else
-			{
-				Display_String("Getting colder...");
-				Display_String(" Simulated temperature: ");
-				Display_Decimal(PWM_DutyCycle);
-				Display_String(" % of 100%");				
-				Display_NewLine();
-			}
-			PWM_DutyCycle -= 2;
-			if (PWM_DutyCycle < 0) {
-				PWM_DutyCycle = 0;
-			}
-			RED_PWM_DutyCycle(PWM_DutyCycle);
-			BLUE_PWM_DutyCycle(100-PWM_DutyCycle);
-		}
-	GPIOIntEnable(GPIO_PORTF_BASE, GPIO_INT_PIN_4);  //Re-Enable GPIO pin interrupt		
+		//..
 	}
 }
 
