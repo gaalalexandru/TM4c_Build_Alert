@@ -1,18 +1,18 @@
 Dependencies for Project 'build_alert', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x58A1CB3F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x58A2AFB5)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x574E8476)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574E8476)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/sysctl.h)(0x5648E778)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/interrupt.h)(0x5648E778)
 I (gpio_handler.h)(0x58A164DB)
-I (uart_handler.h)(0x58A165AD)
+I (uart_handler.h)(0x58A2AFBF)
 I (timer_handler.h)(0x58386428)
-F (.\uart_handler.c)(0x58A1672E)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\uart_handler.o --omf_browse .\objects\uart_handler.crf --depend .\objects\uart_handler.d)
-I (uart_handler.h)(0x58A165AD)
+F (.\uart_handler.c)(0x58A2B3DF)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\uart_handler.o --omf_browse .\objects\uart_handler.crf --depend .\objects\uart_handler.d)
+I (uart_handler.h)(0x58A2AFBF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x574E8476)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574E8476)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/sysctl.h)(0x5648E778)
-I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/uart.h)(0x5648E778)
+I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/uart.h)(0x58A2AF6B)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/pin_map.h)(0x566AABD8)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/gpio.h)(0x586FA90C)
 I (..\..\TivaWare_C_Series-2.1.1.71\inc/hw_memmap.h)(0x5710DA4C)
@@ -25,7 +25,7 @@ I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/gpio.h)(0x586FA90C)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/pin_map.h)(0x566AABD8)
 I (..\..\TivaWare_C_Series-2.1.1.71\driverlib/pwm.h)(0x5648E778)
 I (..\..\TivaWare_C_Series-2.1.1.71\inc/hw_memmap.h)(0x5710DA4C)
-F (.\timer_handler.c)(0x58A1CB5F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\timer_handler.o --omf_browse .\objects\timer_handler.crf --depend .\objects\timer_handler.d)
+F (.\timer_handler.c)(0x58A1CB64)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I ..\..\TivaWare_C_Series-2.1.1.71\driverlib\rvmdk -I ..\..\TivaWare_C_Series-2.1.1.71\-IC:\Users\alexandru.gaal\Documents\GitHub\TM4c_Build_Alert\TM4c_firmware\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-D__UVISION_VERSION="521" -D_RTE_ -DTM4C123GH6PM -Drvmdk -DPART_TM4C123GH6PM -DTARGET_IS_TM4C123_RA1-o .\objects\timer_handler.o --omf_browse .\objects\timer_handler.crf --depend .\objects\timer_handler.d)
 I (timer_handler.h)(0x58386428)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x574E8476)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x574E8476)

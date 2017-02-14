@@ -29,8 +29,8 @@ extern uint8_t Baud_Rate_Read;
 
 int main(void)
 {
-	uint8_t command = 0;
-	uint8_t old_command = 0;
+	uint32_t command = 0;
+	uint32_t old_command = 0;
 	unsigned long ui32SysClock;
 	
 	/* Step1 - Initialize clock and a timer to toggle LED, Init GPIO for RED LED*/
@@ -60,7 +60,8 @@ int main(void)
 	while(ui32SysClock)  //Clock working :)
 	{
 		//run forever
-		if(timer_flag ==1){
+		//if(timer_flag ==1){
+
 			command = UART0_In_Char();
 	#ifdef UART_DEBUG
 		UART0_Out_NewLine();  
@@ -85,8 +86,8 @@ int main(void)
 				}
 				old_command  = command;
 			}
-			timer_flag = 0; //reset flag
-		}
+		//	timer_flag = 0; //reset flag
+		//}
 	}
 	return 0;
 }
