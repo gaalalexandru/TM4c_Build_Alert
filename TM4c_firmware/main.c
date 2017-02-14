@@ -29,7 +29,7 @@ extern uint8_t Baud_Rate_Read;
 
 int main(void)
 {
-	uint32_t command = 0;
+	int32_t command = 0;
 	uint32_t old_command = 0;
 	unsigned long ui32SysClock;
 	

@@ -22,7 +22,7 @@
 
 void UART0_Init(void);
 void UART0_Out_Char(unsigned char data);
-uint32_t UART0_In_Char(void);
+int32_t UART0_In_Char(void);
 void UART0_Out_String(char *pt);
 void UART0_Out_Decimal(unsigned long n);
 void UART0_Out_Hex(unsigned long number);

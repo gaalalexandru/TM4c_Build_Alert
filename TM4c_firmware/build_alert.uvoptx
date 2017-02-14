@@ -148,9 +148,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>80</LineNumber>
+          <LineNumber>82</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>3322</Address>
+          <Address>3332</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -159,23 +159,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\uart_handler.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\demo_simple\uart_handler.c\80</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>67</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>3952</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>.\main.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\demo_simple\main.c\67</Expression>
+          <Expression>\\demo_simple\uart_handler.c\82</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

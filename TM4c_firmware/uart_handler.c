@@ -75,9 +75,11 @@ void UART0_Out_NewLine(void){
   UART0_Out_Char(LF);
 }
 
-uint32_t UART0_In_Char(void){
+int32_t UART0_In_Char(void){
+	int32_t data = 0;
 	while(!UARTCharsAvail(UART0_BASE));
-	return (/*(uint8_t)*/UARTCharGetNonBlocking(UART0_BASE));
+	data = UARTCharGetNonBlocking(UART0_BASE);
+	return data;
 }
 
 //EOF
