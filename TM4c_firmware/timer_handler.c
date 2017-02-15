@@ -1,7 +1,6 @@
 /*------------------Project Includes-----------------*/
 #include "timer_handler.h"
-//#include "led.h"
-//#include "display.h"
+#include "gpio_handler.h"
 
 /*-------------------Driver Includes-----------------*/
 #include "driverlib/sysctl.h"
@@ -45,7 +44,7 @@ void TIMER_Wide_0_Init(void)	//cyclic wide timer configuration
 	TimerClockSourceSet(WTIMER0_BASE, TIMER_CLOCK_SYSTEM);
 	TimerConfigure(WTIMER0_BASE, TIMER_CFG_A_PERIODIC);
 
-	TimerLoadSet(WTIMER0_BASE, TIMER_A, TIMER_reload_calculator(500));	//Set cycle nr for 1000 ms	
+	TimerLoadSet(WTIMER0_BASE, TIMER_A, TIMER_reload_calculator(20000));	//Set cycle nr for 10000 ms	
 	TimerEnable(WTIMER0_BASE, TIMER_A);
 	
 	TimerIntEnable(WTIMER0_BASE,TIMER_TIMA_TIMEOUT);
@@ -60,10 +59,10 @@ void WTIMER0A_Handler(void)		//Wide Timer 0 A ISR
 	if(TimerIntStatus(WTIMER0_BASE,false))
 	{
 		TimerIntClear(WTIMER0_BASE, TIMER_A);
-		//timer_value = TimerValueGet(WTIMER0_BASE, TIMER_A);
-		IntMasterDisable();	//Global interrupt disable
-		timer_flag = 1;
- 	  IntMasterEnable();	//Global interrupt enable
+		GPIO_PortF_Toggle(DARK);
+		IntDisable(INT_WTIMER0A);	
+		TimerIntDisable(WTIMER0_BASE,TIMER_TIMA_TIMEOUT);
+		TimerDisable(WTIMER0_BASE, TIMER_A);
 	}
 }
 

@@ -37,15 +37,8 @@ void GPIO_PortF_Init(void)
 
 void GPIO_PortF_Toggle(unsigned char output)
 {
-	static unsigned char status = 0;
-	if(status != output) {  //if output is changed
-		GPIOPinWrite(GPIO_PORTF_BASE, output, output);	//switch on desired output	
-		status = output;  //set new status status
-	}
-	else {
-		//do nothing
-		//GPIOPinWrite(GPIO_PORTF_BASE, output, 0);  //switch off
-	}
+	GPIOPinWrite(GPIO_PORTF_BASE, 0x0E, 0);	//switch off all outputs
+	GPIOPinWrite(GPIO_PORTF_BASE, output, output);	//switch on desired output	
 }
 
 //EOF

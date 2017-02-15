@@ -2,6 +2,7 @@
 .\objects\timer_handler.o: timer_handler.h
 .\objects\timer_handler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\timer_handler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\timer_handler.o: gpio_handler.h
 .\objects\timer_handler.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/sysctl.h
 .\objects\timer_handler.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/interrupt.h
 .\objects\timer_handler.o: ..\..\TivaWare_C_Series-2.1.1.71\driverlib/timer.h

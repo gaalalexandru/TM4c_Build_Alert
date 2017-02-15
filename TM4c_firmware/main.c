@@ -30,64 +30,41 @@ extern uint8_t Baud_Rate_Read;
 int main(void)
 {
 	int32_t command = 0;
-	uint32_t old_command = 0;
-	unsigned long ui32SysClock;
+	uint32_t ui32SysClock;
 	
 	/* Step1 - Initialize clock and a timer to toggle LED, Init GPIO for RED LED*/
-	SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN); //80 Mhz
+	//SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ | SYSCTL_OSC_MAIN); //80 Mhz
+	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_OSC_INT | SYSCTL_USE_OSC);  //16 Mhz
 	ui32SysClock = SysCtlClockGet();
 	
 	/* Step2 - Initialize UART for receiving commands and display debug info*/
 	UART0_Init();
 	
-#ifdef UART_DEBUG
-	UART0_Out_NewLine();  
-	UART0_Out_String("Clock: ");
-	UART0_Out_Decimal(ui32SysClock/1000000);
-	UART0_Out_String(" MHz");
-	UART0_Out_NewLine();
-	UART0_Out_String("Baud Rate: ");
-	UART0_Out_Decimal(Baud_Rate_Read);
-	UART0_Out_String(" bit/sec");
-	UART0_Out_NewLine();
-#endif
-	
 	/* Step3 - Initialize GPIO output for PF1,2,3 */
 	GPIO_PortF_Init();
-	TIMER_Wide_0_Init();
 
 	/*Step1 - Enter while loop only if clock initialized correctly*/
 	while(ui32SysClock)  //Clock working :)
 	{
 		//run forever
-		//if(timer_flag ==1){
-
-			command = UART0_In_Char();
-	#ifdef UART_DEBUG
-		UART0_Out_NewLine();  
-		UART0_Out_String("Received command: ");
-		UART0_Out_Char(command);
-	#endif
-			if(old_command != command){
-				switch (command){
-					case 0:
-						GPIO_PortF_Toggle(WHITE);
-						break;
-					case 1:
-						GPIO_PortF_Toggle(RED);
-						break;
-					case 2:
-						GPIO_PortF_Toggle(BLUE);
-						break;
-					case 3:
-						GPIO_PortF_Toggle(GREEN);
-					default:
-						break;
+		command = UART0_In_Char();
+		switch (command){
+			case 0x00:  //Unchanged status
+				GPIO_PortF_Toggle(WHITE);
+				break;
+			case 0x01:  //Failed build
+				GPIO_PortF_Toggle(RED);
+				break;
+			case 0x02:  //Unstable build
+				GPIO_PortF_Toggle(PINK);
+				break;
+			case 0x03:  //Successfull build
+				GPIO_PortF_Toggle(GREEN);
+				break;
+			default:  //Other message
+				GPIO_PortF_Toggle(BLUE);
 				}
-				old_command  = command;
-			}
-		//	timer_flag = 0; //reset flag
-		//}
+			TIMER_Wide_0_Init();
 	}
 	return 0;
 }
